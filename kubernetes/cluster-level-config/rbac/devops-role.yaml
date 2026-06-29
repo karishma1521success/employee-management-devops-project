@@ -1,0 +1,80 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+
+metadata:
+  name: devops-role
+
+  labels:
+    team: devops
+
+rules:
+
+# Core API
+- apiGroups: [""]
+  resources:
+    - pods
+    - services
+    - configmaps
+    - secrets
+    - persistentvolumeclaims
+  verbs:
+    - get
+    - list
+    - watch
+    - create
+    - update
+    - patch
+    - delete
+
+# Pod logs and exec
+- apiGroups: [""]
+  resources:
+    - pods/log
+    - pods/exec
+  verbs:
+    - get
+    - create
+
+# Workloads
+- apiGroups: ["apps"]
+  resources:
+    - deployments
+    - replicasets
+    - statefulsets
+    - daemonsets
+  verbs:
+    - get
+    - list
+    - watch
+    - create
+    - update
+    - patch
+    - delete
+
+# Batch
+- apiGroups: ["batch"]
+  resources:
+    - jobs
+    - cronjobs
+  verbs:
+    - get
+    - list
+    - watch
+    - create
+    - update
+    - patch
+    - delete
+
+# Networking
+- apiGroups: ["networking.k8s.io"]
+  resources:
+    - ingresses
+    - networkpolicies
+  verbs:
+    - get
+    - list
+    - watch
+    - create
+    - update
+    - patch
+    - delete

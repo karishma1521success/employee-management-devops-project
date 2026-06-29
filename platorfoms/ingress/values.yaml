@@ -1,0 +1,15 @@
+controller:
+  replicaCount: 1
+
+  nodeSelector:
+    role: platform
+    team: platform
+
+  tolerations:
+    - key: "dedicated"
+      operator: "Equal"
+      value: "platform"
+      effect: "NoSchedule"
+
+  service:
+    type: NodePort

@@ -1,1 +1,69 @@
-#role
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: qa-role
+  namespace: qa
+  labels:
+    environment: testing
+    team: qa-team
+
+rules:
+  # providing access at the core api groups
+  # Core API resources
+  - apiGroups: [""]
+    resources:
+      - pods
+      - services
+      - configmaps
+    verbs:
+      - get
+      - list
+      - watch
+
+  # Pod subresources - logs
+  - apiGroups: [""]
+    resources:
+      - pods/log
+    verbs:
+      - get
+
+  # providing a limited access to pvc in core api's group 
+  # Storage resources
+  - apiGroups: [""]
+    resources:
+      - persistentvolumeclaims
+    verbs:
+      - get
+      - list
+
+  # providing the access in deployments in APIs named group
+  # Workload resources (apps API group)
+  - apiGroups: ["apps"]
+    resources:
+      - deployments
+    verbs:
+      - get
+      - list
+      - watch
+      - patch
+      
+  # ReplicaSets
+  - apiGroups: ["apps"]
+    resources:
+      - replicasets
+    verbs:
+      - get
+      - list
+      - watch
+
+      
+  # ReplicaSets
+  - apiGroups: ["batch"]
+    resources:
+      - jobs
+      - cronjobs
+    verbs:
+      - get
+      - list
+      - watch
