@@ -3,6 +3,6 @@ kind: Namespace
 metadata:
   name: dev
   labels:
-    environment: developement
+    environment: development
     team: application
 
