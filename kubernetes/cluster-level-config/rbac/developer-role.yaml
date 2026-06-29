@@ -1,0 +1,81 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: developer-role
+  namespace: dev
+  labels:
+    environment: development
+    team: development-team
+
+rules:
+  # providing access at the core api groups
+  # Core API resources
+  - apiGroups: [""]
+    resources:
+      - pods
+      - services
+      - configmaps
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+
+  # Pod subresources
+  - apiGroups: [""]
+    resources:
+      - pods/log
+    verbs:
+    - get
+
+  # providing a limited access to pvc in core api's group 
+  # Storage resources
+  - apiGroups: [""]
+    resources:
+      - persistentvolumeclaims
+    verbs:
+      - get
+      - list
+
+  # providing the access in deployments in APIs named group
+  # Workload resources (apps API group)
+  - apiGroups: ["apps"]
+    resources:
+      - deployments
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+
+  # providing the access in deployments in APIs named group
+  - apiGroups: ["apps"]
+    resources:
+      - replicasets
+    verbs:
+      - get
+      - list
+      - watch
+
+    # providing the access in deployments in APIs named group
+    # Batch workloads
+  - apiGroups: ["batch"]
+    resources:
+      - jobs
+      - cronjobs
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+
