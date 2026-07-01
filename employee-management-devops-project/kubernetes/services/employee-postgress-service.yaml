@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: employee-postgress-svc
+  namespace: dev
+  labels:
+    app: employee-postgress
+
+spec:
+  type: ClusterIP
+  selector:
+    app: employee-postgress
+
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432

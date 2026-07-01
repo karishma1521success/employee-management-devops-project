@@ -1,0 +1,53 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+
+metadata:
+  name: devops-dev-rolebinding
+  namespace: dev
+
+subjects:
+- kind: ServiceAccount
+  name: devops-sa
+  namespace: prod
+
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: devops-role
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+
+metadata:
+  name: devops-qa-rolebinding
+  namespace: qa
+
+subjects:
+- kind: ServiceAccount
+  name: devops-sa
+  namespace: prod
+
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: devops-role
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+
+metadata:
+  name: devops-prod-rolebinding
+  namespace: prod
+
+subjects:
+- kind: ServiceAccount
+  name: devops-sa
+  namespace: prod
+
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: devops-role

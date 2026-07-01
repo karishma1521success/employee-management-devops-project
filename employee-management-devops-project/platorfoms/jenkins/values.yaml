@@ -1,0 +1,33 @@
+controller:
+  nodeSelector:
+    role: platform
+    team: platform
+
+  tolerations:
+    - key: "dedicated"
+      operator: "Equal"
+      value: "platform"
+      effect: "NoSchedule"
+
+  serviceType: ClusterIP
+
+  resources:
+    requests:
+      cpu: "500m"
+      memory: "1Gi"
+    limits:
+      cpu: "1"
+      memory: "2Gi"
+
+  installPlugins:
+    - kubernetes
+    - workflow-aggregator
+    - git
+    - github
+    - docker-workflow
+    - credentials
+    - configuration-as-code
+
+persistence:
+  enabled: true
+  size: 8Gi
